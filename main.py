@@ -1,6 +1,7 @@
 import pygame
 import os
 from constants import *
+from player import Player
 
 # needed to remove annoing ALSA sound driver errors. Pulse is the sound server of choice, I guess
 # sound driver/server can be confirmed by running >echo $PULSE_SERVER< (shoud see output if it's pulse)
@@ -9,6 +10,7 @@ os.environ['SDL_AUDIODRIVER'] = 'pulse'
 def main():
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
     clock = pygame.time.Clock()
     dt = 0.0
     while True:
@@ -16,6 +18,7 @@ def main():
             if event.type == pygame.QUIT:
                 return
         screen.fill("black")
+        player.draw(screen)
         pygame.display.flip()
         dt = clock.tick(MAX_FPS) / 1000
     print("Starting Asteroids!")
